@@ -16,19 +16,14 @@ COPY uwsgi/uwsgi.ini uwsgi.ini
 
 RUN  mkdir -p /var/www/static/ \
      && mkdir -p /var/www/media/ \
-#     && mkdir -p /opt/app/static/ \
-#     && mkdir -p /opt/app/media/ \
+     && mkdir -p /opt/app/static/ \
+     && mkdir -p /opt/app/media/ \
      && pip install --upgrade pip \
      && pip install -r requirements.txt
-
-#RUN adduser --disabled-password producer
-#USER producer
 
 EXPOSE 8000
 
 COPY . .
 
-#RUN python manage.py collectstatic --clear --noinput  # && python manage.py compilemessages
-#
-#CMD ["python", "manage.py", "runserver"]
-#CMD ["entrypoint.sh", "gunicorn", "--bind", "0.0.0.0:8000", "Movies.wsgi"]
+RUN adduser --disabled-password producer
+USER producer

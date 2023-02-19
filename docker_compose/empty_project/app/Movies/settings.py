@@ -6,7 +6,7 @@ from split_settings.tools import include
 
 load_dotenv()
 
-LOCALE_PATHS = ['movies/locale']
+LOCALE_PATHS = ['cinema/locale']
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
