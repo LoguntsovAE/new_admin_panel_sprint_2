@@ -1,7 +1,10 @@
+version: '3'
+
 services:
   django:
     build: app
-    command: uwsgi --strict --ini uwsgi.ini
+    command: sh -c "python manage.py migrate &&
+                    uwsgi --strict --ini uwsgi.ini"
     restart: always
     env_file:
       - ./.env
@@ -22,7 +25,7 @@ services:
       - static_volume:/opt/app/static
       - media_volume:/opt/app/media
     expose:
-      - "8000"
+      - "80"
     depends_on:
       - django
 

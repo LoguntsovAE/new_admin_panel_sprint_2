@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunSQL(('CREATE SCHEMA content;',)),
         migrations.CreateModel(
             name='Filmwork',
             fields=[
