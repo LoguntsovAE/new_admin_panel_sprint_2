@@ -9,7 +9,7 @@ ENV UWSGI_THREADS 16
 ENV UWSGI_HARAKIRI 240
 ENV DJANGO_SETTINGS_MODULE 'Movies.settings'
 
-RUN apt-get update
+RUN apt-get update && apt-get install -y netcat
 
 COPY requirements.txt requirements.txt
 COPY uwsgi/uwsgi.ini uwsgi.ini
@@ -24,6 +24,11 @@ RUN  mkdir -p /var/www/static/ \
 EXPOSE 8000
 
 COPY . .
+COPY ./django_run.sh /
+RUN chmod +x /django_run.sh
 
 RUN adduser --disabled-password producer
+RUN chown producer /opt/app/static/
 USER producer
+
+ENTRYPOINT ["/django_run.sh"]

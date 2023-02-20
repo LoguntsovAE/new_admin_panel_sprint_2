@@ -2,17 +2,13 @@ version: '3'
 
 services:
   django:
-    build: app
-    command: sh -c "python manage.py migrate &&
-                    uwsgi --strict --ini uwsgi.ini"
+    build: ./app
     restart: always
     env_file:
       - ./.env
     volumes:
       - static_volume:/opt/app/static
       - media_volume:/opt/app/media
-    expose:
-      - "8000"
     depends_on:
       - psql
 
